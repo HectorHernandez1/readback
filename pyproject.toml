@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "readback"
+version = "0.1.0"
+description = "PDF to podcast — converts study material into narrator-style audio"
+requires-python = ">=3.10"
+dependencies = [
+    "pdfplumber>=0.11",
+    "anthropic>=0.40",
+    "elevenlabs>=1.0",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+readback = "readback.cli:main"
