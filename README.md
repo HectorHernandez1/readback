@@ -26,19 +26,33 @@ cp .env.example .env
 
 ## Usage
 
+### Web UI
+
+```bash
+conda activate readback
+readback-web
+```
+
+Open the printed URL (default http://127.0.0.1:8000), paste an arXiv, DOI, or
+direct-PDF link, click **Load**, then **Generate audio**. The reader highlights
+word-by-word as it plays (pause/play with the audio controls). Select any phrase
+in the script, then ask questions in the chat panel — answers come from DeepSeek
+with the paper as context.
+
+### CLI
+
 ```bash
 conda activate readback
 readback paper.pdf
 ```
 
-### Options
+#### CLI Options
 
 - `--voice` — ElevenLabs voice ID (defaults to Rachel)
 - `--output-dir` — Output directory (defaults to `~/Documents/mp3`)
 
 ## How it works
 
-1. Extracts text from PDF using pdfplumber
-2. Rewrites content as a spoken-word narrator script via Claude
-3. Converts script to speech via ElevenLabs
-4. Saves the MP3 locally
+1. Extracts text from PDF using pdfplumber, stripping citations, equations, and page artifacts
+2. Converts the cleaned text to speech via ElevenLabs
+3. Saves the MP3 locally

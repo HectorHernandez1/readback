@@ -2,9 +2,9 @@ import argparse
 import sys
 from pathlib import Path
 
+from .clean import clean_text
 from .config import DEFAULT_OUTPUT_DIR, DEFAULT_VOICE_ID
 from .extract import extract_text
-from .rewrite import rewrite_as_script
 from .speak import synthesize
 
 
@@ -34,10 +34,13 @@ def main():
         sys.exit(1)
     print(f"  Extracted {len(text):,} characters")
 
-    print("[2/3] Rewriting as narrator script...")
-    script = rewrite_as_script(text)
-    print(f"  Script: {len(script):,} characters")
+    print("[2/3] Cleaning text...")
+    try:
+        text = clean_text(text)
+    except Exception as exc:
+        print(f"  Warning: cleanup failed ({exc}), using raw extraction", file=sys.stderr)
+    print(f"  Cleaned: {len(text):,} characters")
 
     print("[3/3] Generating audio...")
-    output = synthesize(script, pdf_path.name, voice_id=args.voice, output_dir=args.output_dir)
+    output = synthesize(text, pdf_path.name, voice_id=args.voice, output_dir=args.output_dir)
     print(f"Done! Saved to {output}")

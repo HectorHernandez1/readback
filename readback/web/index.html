@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+  <title>Readback</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">Readback</h1>
+    <button id="library-btn" class="ghost-btn">Library</button>
+    <div class="loader">
+      <input id="url" type="text" placeholder="Paste an arXiv, DOI, or direct PDF link" />
+      <button id="load-btn">Load</button>
+    </div>
+    <div id="status" class="status"></div>
+  </header>
+
+  <div id="error-banner" class="error-banner hidden">
+    <span id="error-text"></span>
+    <button id="error-close" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <div id="library-panel" class="library-panel hidden">
+    <div class="library-head">
+      <span>Previously loaded papers</span>
+      <button id="library-close" aria-label="Close">&times;</button>
+    </div>
+    <div id="library-list" class="library-list"></div>
+  </div>
+
+  <main class="layout no-chat">
+    <section class="reader">
+      <div id="paper-meta" class="paper-meta hidden">
+        <h2 id="paper-title"></h2>
+        <button id="generate-btn" disabled>Generate audio</button>
+        <a id="pdf-download" class="ghost-btn hidden" download>Download PDF</a>
+      </div>
+
+      <div id="player-row" class="player-row hidden">
+        <audio id="audio" controls></audio>
+      </div>
+
+      <article id="script" class="script" tabindex="0"></article>
+      <div id="spinner" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+        <div id="spinner-label" class="spinner-label">Working…</div>
+      </div>
+    </section>
+
+    <aside class="chat hidden-chat" id="chat-panel">
+      <div class="chat-head">
+        <span>Ask the paper</span>
+        <span id="sel-badge" class="sel-badge hidden">selection set</span>
+      </div>
+      <div id="messages" class="messages"></div>
+      <div class="composer">
+        <input id="question" type="text" placeholder="Ask about the paper (or highlight text first)" />
+        <button id="send-btn">Send</button>
+      </div>
+    </aside>
+
+    <button id="chat-toggle" class="chat-toggle" aria-label="Toggle chat">&#8592;</button>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
